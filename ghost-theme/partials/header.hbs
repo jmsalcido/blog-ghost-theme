@@ -1,0 +1,28 @@
+<header class="gh-head" role="banner">
+  <div class="gh-head-inner">
+
+    <a href="{{@site.url}}" class="gh-head-brand">
+      <span class="gh-head-brand-dot" aria-hidden="true"></span>
+      {{@site.title}}
+    </a>
+
+    <nav class="gh-head-nav" aria-label="Main navigation">
+      <ul role="list">
+        {{navigation}}
+      </ul>
+    </nav>
+
+    <div class="gh-head-actions">
+      <button class="gh-head-search" data-ghost-search aria-label="Search">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.3"/>
+          <line x1="9" y1="9" x2="13" y2="13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </button>
+      {{#if @site.members_enabled}}
+        <a href="#/portal/signup" data-portal="signup" class="gh-head-btn">Subscribe</a>
+      {{/if}}
+    </div>
+
+  </div>
+</header>

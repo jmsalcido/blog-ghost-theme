@@ -1,0 +1,20 @@
+{{#if @site.members_enabled}}
+<section class="gh-newsletter" aria-label="Newsletter signup">
+  <div class="gh-newsletter-inner">
+    <span class="rule-accent" style="margin: 0 auto 20px;"></span>
+    <h3 class="gh-newsletter-title">Stay in the current.</h3>
+    <p class="gh-newsletter-desc">New posts on business, mindset, and building — delivered when they're ready.</p>
+    <form class="gh-newsletter-form" data-members-form="subscribe">
+      <input
+        type="email"
+        data-members-email
+        placeholder="you@example.com"
+        required
+        aria-label="Email address">
+      <button type="submit">Subscribe →</button>
+      <p class="gh-newsletter-success">You're in. First note coming soon.</p>
+      <p class="gh-newsletter-error">Something went wrong. Please try again.</p>
+    </form>
+  </div>
+</section>
+{{/if}}

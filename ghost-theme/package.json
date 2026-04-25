@@ -1,0 +1,41 @@
+{
+  "name": "salcido",
+  "description": "Jose Salcido — personal brand Ghost theme",
+  "version": "1.1.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jose Salcido",
+    "email": "hello@josesalcido.com",
+    "url": "https://josesalcido.com"
+  },
+  "config": {
+    "posts_per_page": 9,
+    "image_sizes": {
+      "xxs": {
+        "width": 80
+      },
+      "xs": {
+        "width": 160
+      },
+      "s": {
+        "width": 320
+      },
+      "m": {
+        "width": 600
+      },
+      "l": {
+        "width": 1000
+      },
+      "xl": {
+        "width": 1600
+      },
+      "xxl": {
+        "width": 2400
+      }
+    },
+    "card_assets": true
+  }
+}

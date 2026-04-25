@@ -1,0 +1,158 @@
+{{!< default}}
+
+{{#post}}
+<div class="gh-main-wrap gh-main-wrap--post">
+
+  {{! Reading progress bar }}
+  <div class="gh-reading-progress" aria-hidden="true">
+    <div class="gh-reading-progress-bar"></div>
+  </div>
+
+  {{! Full-bleed cover image }}
+  {{#if feature_image}}
+  <div class="gh-post-cover">
+    <img
+      srcset="
+        {{img_url feature_image size="m"}}   600w,
+        {{img_url feature_image size="l"}}  1000w,
+        {{img_url feature_image size="xl"}} 1600w,
+        {{img_url feature_image size="xxl"}} 2400w"
+      sizes="100vw"
+      src="{{img_url feature_image size="xl"}}"
+      alt="{{title}}"
+      loading="eager">
+  </div>
+  {{/if}}
+
+  <div class="gh-container--article">
+
+    {{! Post header }}
+    <header class="gh-post-header">
+
+      {{! Breadcrumb }}
+      <nav class="gh-post-breadcrumb" aria-label="breadcrumb">
+        <a href="{{@site.url}}">Home</a>
+        <span aria-hidden="true">›</span>
+        {{#primary_tag}}
+          <a href="{{url}}">{{name}}</a>
+        {{/primary_tag}}
+      </nav>
+
+      {{! Tag + reading time }}
+      <div class="gh-post-meta-row">
+        {{#primary_tag}}
+          <a href="{{url}}" class="post-tag">{{name}}</a>
+        {{/primary_tag}}
+        <span class="gh-post-readtime">{{reading_time}}</span>
+      </div>
+
+      {{! Title }}
+      <h1 class="gh-post-title">{{title}}</h1>
+
+      {{! Author + date }}
+      <div class="gh-post-author-row">
+        {{#primary_author}}
+          {{#if profile_image}}
+            <img
+              class="gh-post-author-avatar"
+              src="{{img_url profile_image size="xxs"}}"
+              alt="{{name}}">
+          {{else}}
+            <div class="gh-post-author-avatar-placeholder" aria-hidden="true">
+              {{name.[0]}}
+            </div>
+          {{/if}}
+          <div>
+            <a href="{{url}}" class="gh-post-author-name">{{name}}</a>
+            <div class="gh-post-author-date">
+              {{date ../published_at format="MMM D, YYYY"}}
+            </div>
+          </div>
+        {{/primary_author}}
+      </div>
+
+    </header>
+
+    {{! Body: TOC | Article | Social share }}
+    <div class="gh-post-body-layout">
+
+      {{! TOC — headings injected by theme.js }}
+      <aside class="gh-toc" aria-label="Table of contents">
+        <span class="gh-toc-label">In this post</span>
+        <ul class="gh-toc-list" role="list"></ul>
+      </aside>
+
+      {{! Article content }}
+      <article class="gh-article">
+
+        <section class="gh-content">
+          {{{content}}}
+        </section>
+
+        {{! Post tags }}
+        {{#if tags}}
+        <footer class="gh-post-tags">
+          {{#foreach tags}}
+            <a href="{{url}}" class="post-tag">{{name}}</a>
+          {{/foreach}}
+        </footer>
+        {{/if}}
+
+        {{! Related posts — uses primary_tag.slug from post root context }}
+        {{#get "posts" filter="tag:{{primary_tag.slug}}+id:-{{id}}" limit="2"}}
+          {{#if posts}}
+          <div class="gh-related">
+            <span class="rule-accent" style="margin-top:72px"></span>
+            <h3 class="gh-related-title">More writing</h3>
+            <div class="gh-post-grid">
+              {{#foreach posts}}
+                {{> post-card}}
+              {{/foreach}}
+            </div>
+          </div>
+          {{/if}}
+        {{/get}}
+
+        {{> newsletter}}
+
+      </article>
+
+      {{! Social share }}
+      <aside class="gh-share" aria-label="Share this post">
+        <span class="gh-share-label" aria-hidden="true">Share</span>
+        <a href="https://twitter.com/share?url={{url absolute="true"}}&text={{encode title}}"
+           class="gh-share-btn"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Share on X / Twitter"
+           title="Share on X">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.738-8.835L1.254 2.25H8.08l4.261 5.635 5.903-5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{url absolute="true"}}&title={{encode title}}"
+           class="gh-share-btn"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Share on LinkedIn"
+           title="Share on LinkedIn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <button
+          class="gh-share-btn"
+          data-copy-link
+          aria-label="Copy link"
+          title="Copy link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </button>
+      </aside>
+
+    </div>
+  </div>
+</div>
+{{/post}}

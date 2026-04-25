@@ -1,0 +1,39 @@
+{{!< default}}
+
+<div class="gh-main-wrap">
+
+  {{#tag}}
+  <div class="gh-tag-header">
+    <div class="gh-tag-header-inner">
+      <span class="rule-accent"></span>
+      <p class="gh-tag-eyebrow">Topic</p>
+      <h1 class="gh-tag-name">{{name}}</h1>
+      <p class="gh-tag-count">
+        {{../pagination.total}} {{plural ../pagination.total singular="post" plural="posts"}}
+      </p>
+    </div>
+  </div>
+  {{/tag}}
+
+  {{! Other topics strip }}
+  <nav class="gh-tag-nav" aria-label="Other topics">
+    <div class="gh-tag-nav-inner">
+      <span class="gh-tag-nav-label">More topics:</span>
+      {{#get "tags" limit="10" order="count.posts desc"}}
+        {{#foreach tags}}
+          <a href="{{url}}" class="gh-tag-pill">{{name}}</a>
+        {{/foreach}}
+      {{/get}}
+    </div>
+  </nav>
+
+  <div class="gh-container" style="padding-top: 48px; padding-bottom: 96px;">
+    <div class="gh-post-grid">
+      {{#foreach posts}}
+        {{> post-card}}
+      {{/foreach}}
+    </div>
+    {{pagination}}
+  </div>
+
+</div>

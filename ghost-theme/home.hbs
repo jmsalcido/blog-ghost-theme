@@ -1,0 +1,60 @@
+{{!< default}}
+
+<div class="gh-main-wrap">
+  <div class="gh-container">
+
+    {{! Section header }}
+    <header class="gh-section-header">
+      <span class="gh-section-eyebrow">Writing</span>
+      <span class="rule-accent"></span>
+      <h1 class="gh-section-title">{{@site.description}}</h1>
+    </header>
+
+    {{! Featured hero — first post marked featured }}
+    {{#get "posts" filter="featured:true" limit="1"}}
+      {{#foreach posts}}
+      <div class="gh-home-hero">
+        <a href="{{url}}" class="post-hero" aria-label="{{title}}">
+          {{#if feature_image}}
+          <div class="post-hero-image">
+            <img
+              srcset="
+                {{img_url feature_image size="m"}}  600w,
+                {{img_url feature_image size="l"}} 1000w,
+                {{img_url feature_image size="xl"}} 2000w"
+              sizes="(max-width: 1100px) 100vw, 1100px"
+              src="{{img_url feature_image size="l"}}"
+              alt="{{title}}"
+              loading="eager">
+          </div>
+          {{/if}}
+          <div class="post-hero-content">
+            {{#primary_tag}}<span class="post-tag">{{name}}</span>{{/primary_tag}}
+            <h2 class="post-hero-title">{{title}}</h2>
+            <p class="post-hero-excerpt">{{excerpt words="30"}}</p>
+            <div class="post-meta">
+              <span>{{date published_at format="MMM D, YYYY"}}</span>
+              <span aria-hidden="true">·</span>
+              <span>{{reading_time}}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {{/foreach}}
+    {{/get}}
+
+    {{! Post grid — skip any featured post }}
+    <div class="gh-post-grid">
+      {{#foreach posts}}
+        {{#unless featured}}
+          {{> post-card}}
+        {{/unless}}
+      {{/foreach}}
+    </div>
+
+    {{pagination}}
+
+    {{> newsletter}}
+
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{{!< default}}
+
+<div class="gh-main-wrap">
+
+  {{#author}}
+  <div class="gh-author-header">
+    <div class="gh-author-header-inner">
+
+      {{#if profile_image}}
+        <img
+          class="gh-author-avatar"
+          src="{{img_url profile_image size="s"}}"
+          alt="{{name}}">
+      {{else}}
+        <div class="gh-author-avatar-placeholder" aria-hidden="true">
+          {{name.[0]}}
+        </div>
+      {{/if}}
+
+      <div class="gh-author-info">
+        <p class="gh-author-eyebrow">Author</p>
+        <h1 class="gh-author-name">{{name}}</h1>
+        {{#if bio}}
+          <p class="gh-author-bio">{{bio}}</p>
+        {{/if}}
+        <div class="gh-author-meta">
+          <span>{{../pagination.total}} {{plural ../pagination.total singular="post" plural="posts"}}</span>
+          {{#if location}}
+            <span class="gh-author-meta-dot" aria-hidden="true"></span>
+            <span>{{location}}</span>
+          {{/if}}
+          {{#if website}}
+            <span class="gh-author-meta-dot" aria-hidden="true"></span>
+            <a href="{{website}}" target="_blank" rel="noopener noreferrer">Website</a>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {{/author}}
+
+  <div class="gh-container" style="padding-top: 52px; padding-bottom: 96px;">
+    <span class="rule-accent"></span>
+    <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--text-main); margin-bottom: 28px; letter-spacing: -0.015em;">All posts</h2>
+    {{#foreach posts}}
+      {{> post-list-item}}
+    {{/foreach}}
+    {{pagination}}
+  </div>
+
+</div>
