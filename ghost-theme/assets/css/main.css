@@ -34,6 +34,7 @@
 
   --max-content: 1100px;
   --nav-height:  64px;
+  --announcement-bar-height: 48px;
 }
 
 /* ── RESET & BASE ─────────────────────────────────────────── */
@@ -77,6 +78,14 @@ input:focus { outline: none; }
 /* ── LAYOUT HELPERS ───────────────────────────────────────── */
 .gh-main-wrap          { padding-top: var(--nav-height); }
 .gh-main-wrap--post    { padding-top: 0; }
+
+body:has(#announcement-bar-root .gh-announcement-bar) .gh-main-wrap {
+  padding-top: calc(var(--nav-height) + var(--announcement-bar-height));
+}
+
+body:has(#announcement-bar-root .gh-announcement-bar) .gh-main-wrap--post {
+  padding-top: var(--announcement-bar-height);
+}
 
 .gh-container          { max-width: var(--max-content); margin: 0 auto; padding: 0 40px; }
 .gh-container--article { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
@@ -154,6 +163,51 @@ input:focus { outline: none; }
   box-shadow: 0 2px 12px rgba(22,117,166,0.35); transition: opacity 180ms;
 }
 .gh-head-btn:hover { opacity: 0.82; }
+
+/* ── ANNOUNCEMENT BAR ─────────────────────────────────────── */
+#announcement-bar-root .gh-announcement-bar {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  min-height: var(--announcement-bar-height) !important;
+  z-index: 110 !important;
+  background: var(--bg-ocean) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid rgba(207,211,210,0.12) !important;
+  box-shadow: 0 4px 18px rgba(6,60,107,0.28) !important;
+}
+
+#announcement-bar-root .gh-announcement-bar-content {
+  min-height: var(--announcement-bar-height) !important;
+  max-width: var(--max-content) !important;
+  margin: 0 auto !important;
+  padding: 8px 56px !important;
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  text-align: center !important;
+  color: var(--text-main) !important;
+}
+
+#announcement-bar-root .gh-announcement-bar-content a {
+  color: var(--accent-sand) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
+}
+
+#announcement-bar-root .gh-announcement-bar-content a:hover {
+  color: var(--text-main) !important;
+}
+
+#announcement-bar-root .gh-announcement-bar button,
+#announcement-bar-root .gh-announcement-bar svg {
+  color: var(--text-main) !important;
+}
+
+body:has(#announcement-bar-root .gh-announcement-bar) .gh-head {
+  top: var(--announcement-bar-height);
+}
 
 /* ── TAG PILL ─────────────────────────────────────────────── */
 .post-tag {
@@ -332,6 +386,9 @@ input:focus { outline: none; }
 .gh-reading-progress {
   position: fixed; top: var(--nav-height); left: 0; right: 0;
   height: 2px; z-index: 99; pointer-events: none;
+}
+body:has(#announcement-bar-root .gh-announcement-bar) .gh-reading-progress {
+  top: calc(var(--nav-height) + var(--announcement-bar-height));
 }
 .gh-reading-progress-bar {
   height: 100%; background: var(--accent-orange); width: 0%;
@@ -652,6 +709,11 @@ input:focus { outline: none; }
   .kg-width-wide, .kg-width-full { margin-left: 0; margin-right: 0; }
 }
 @media (max-width: 700px) {
+  :root { --announcement-bar-height: 64px; }
+  #announcement-bar-root .gh-announcement-bar-content {
+    padding: 8px 48px 8px 20px !important;
+    font-size: 12px !important;
+  }
   .gh-head-inner { padding: 0 20px; }
   .gh-head-nav { display: none; }
   .gh-container, .gh-container--article { padding: 0 20px; }
