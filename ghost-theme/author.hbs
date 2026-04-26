@@ -24,7 +24,7 @@
           <p class="gh-author-bio">{{bio}}</p>
         {{/if}}
         <div class="gh-author-meta">
-          <span>{{../pagination.total}} {{plural ../pagination.total singular="post" plural="posts"}}</span>
+          <span>{{../pagination.total}} {{plural ../pagination.total empty="posts" singular="post" plural="posts"}}</span>
           {{#if location}}
             <span class="gh-author-meta-dot" aria-hidden="true"></span>
             <span>{{location}}</span>
@@ -42,7 +42,7 @@
 
   <div class="gh-container" style="padding-top: 52px; padding-bottom: 96px;">
     <span class="rule-accent"></span>
-    <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--text-main); margin-bottom: 28px; letter-spacing: -0.015em;">All posts</h2>
+    <h2 class="gh-discovery-title">All posts by {{#author}}{{name}}{{/author}}</h2>
     {{#foreach posts}}
       {{> post-list-item}}
     {{/foreach}}

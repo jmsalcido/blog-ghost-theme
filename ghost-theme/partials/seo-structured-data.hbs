@@ -1,0 +1,64 @@
+{{#is "home"}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{@site.url}}/#website",
+      "url": "{{@site.url}}/",
+      "name": "{{@site.title}}",
+      "description": "Building real systems: software, SaaS, coffee, and operations from Mexico.",
+      "inLanguage": "{{@site.locale}}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{@site.title}}",
+        "url": "{{@site.url}}/"
+      }
+    },
+    {
+      "@type": "Blog",
+      "@id": "{{@site.url}}/#blog",
+      "url": "{{@site.url}}/",
+      "name": "{{@site.title}}",
+      "description": "Personal essays and field notes on software, SaaS, coffee, operations, and building from Mexico.",
+      "inLanguage": "{{@site.locale}}"
+    }
+  ]
+}
+</script>
+{{/is}}
+
+{{#is "post"}}
+{{#post}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "{{url absolute="true"}}#blogposting",
+  "mainEntityOfPage": "{{url absolute="true"}}",
+  "headline": "{{title}}",
+  "description": "{{excerpt words="45"}}",
+  "datePublished": "{{date published_at format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}",
+  "dateModified": "{{date updated_at format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}",
+  "inLanguage": "{{@site.locale}}",
+  "url": "{{url absolute="true"}}",
+  {{#if feature_image}}
+  "image": "{{img_url feature_image absolute="true" size="xl"}}",
+  {{/if}}
+  {{#primary_author}}
+  "author": {
+    "@type": "Person",
+    "name": "{{name}}",
+    "url": "{{url absolute="true"}}"
+  },
+  {{/primary_author}}
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{@site.title}}",
+    "url": "{{@site.url}}/"
+  }
+}
+</script>
+{{/post}}
+{{/is}}

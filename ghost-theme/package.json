@@ -1,7 +1,10 @@
 {
   "name": "salcido",
   "description": "Jose Salcido — personal brand Ghost theme",
-  "version": "1.2.0",
+  "version": "2.3.0",
+  "keywords": [
+    "ghost-theme"
+  ],
   "engines": {
     "ghost": ">=5.0.0"
   },

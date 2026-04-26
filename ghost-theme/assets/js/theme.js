@@ -24,9 +24,10 @@
     const headings = Array.from(article.querySelectorAll('h2, h3'));
 
     if (headings.length === 0) {
-      // Hide the whole TOC sidebar if there are no headings
       const toc = document.querySelector('.gh-toc');
       if (toc) toc.style.display = 'none';
+      const layout = document.querySelector('.gh-post-body-layout');
+      if (layout) layout.classList.add('gh-post-body-layout--no-toc');
     } else {
       // Build TOC links
       headings.forEach((heading, i) => {

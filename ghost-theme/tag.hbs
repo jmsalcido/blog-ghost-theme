@@ -9,8 +9,11 @@
       <p class="gh-tag-eyebrow">Topic</p>
       <h1 class="gh-tag-name">{{name}}</h1>
       <p class="gh-tag-count">
-        {{../pagination.total}} {{plural ../pagination.total singular="post" plural="posts"}}
+        {{../pagination.total}} {{plural ../pagination.total empty="posts" singular="post" plural="posts"}}
       </p>
+      {{#if description}}
+        <p class="gh-tag-description">{{description}}</p>
+      {{/if}}
     </div>
   </div>
   {{/tag}}
@@ -28,6 +31,10 @@
   </nav>
 
   <div class="gh-container" style="padding-top: 48px; padding-bottom: 96px;">
+    <div class="gh-discovery-header">
+      <span class="rule-accent"></span>
+      <h2 class="gh-discovery-title">Posts in this topic</h2>
+    </div>
     <div class="gh-post-grid">
       {{#foreach posts}}
         {{> post-card}}

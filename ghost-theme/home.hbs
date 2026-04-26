@@ -3,56 +3,75 @@
 <div class="gh-main-wrap">
   <div class="gh-container">
 
-    {{! Section header }}
     <header class="gh-section-header">
-      <span class="gh-section-eyebrow">Writing</span>
+      <span class="gh-section-eyebrow">Field notes</span>
       <span class="rule-accent"></span>
-      <h1 class="gh-section-title">{{@site.description}}</h1>
+      <h1 class="gh-section-title">Building real systems: software, SaaS, coffee, and operations from Mexico.</h1>
+      <p class="gh-section-subtitle">Personal notes from Jose Salcido on turning ideas into working products, running small businesses, learning through coffee, and staying honest about the process.</p>
     </header>
 
-    {{! Featured hero — first post marked featured }}
-    {{#get "posts" filter="featured:true" limit="1"}}
-      {{#foreach posts}}
-      <div class="gh-home-hero">
-        <a href="{{url}}" class="post-hero" aria-label="{{title}}">
-          {{#if feature_image}}
-          <div class="post-hero-image">
-            <img
-              srcset="
-                {{img_url feature_image size="m"}}  600w,
-                {{img_url feature_image size="l"}} 1000w,
-                {{img_url feature_image size="xl"}} 2000w"
-              sizes="(max-width: 1100px) 100vw, 1100px"
-              src="{{img_url feature_image size="l"}}"
-              alt="{{title}}"
-              loading="eager">
-          </div>
-          {{/if}}
-          <div class="post-hero-content">
-            {{#primary_tag}}<span class="post-tag">{{name}}</span>{{/primary_tag}}
-            <h2 class="post-hero-title">{{title}}</h2>
-            <p class="post-hero-excerpt">{{excerpt words="30"}}</p>
-            <div class="post-meta">
-              <span>{{date published_at format="MMM D, YYYY"}}</span>
-              <span aria-hidden="true">·</span>
-              <span>{{reading_time}}</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      {{/foreach}}
+    {{#get "posts" filter="featured:true" limit="3"}}
+      {{#if posts}}
+      <section class="gh-discovery-section" aria-labelledby="featured-posts">
+        <div class="gh-discovery-header">
+          <span class="rule-accent"></span>
+          <h2 id="featured-posts" class="gh-discovery-title">Featured posts</h2>
+        </div>
+        <div class="gh-post-grid">
+          {{#foreach posts}}
+            {{> post-card}}
+          {{/foreach}}
+        </div>
+      </section>
+      {{/if}}
     {{/get}}
 
-    {{! Post grid — skip any featured post }}
-    <div class="gh-post-grid">
-      {{#foreach posts}}
-        {{#unless featured}}
-          {{> post-card}}
-        {{/unless}}
-      {{/foreach}}
-    </div>
+    {{#get "tags" limit="8" order="count.posts desc"}}
+      {{#if tags}}
+      <section class="gh-topic-strip" aria-labelledby="topics">
+        <div>
+          <span class="gh-section-eyebrow">Topics</span>
+          <h2 id="topics" class="gh-topic-title">Software, business, coffee, and personal operating notes.</h2>
+        </div>
+        <div class="gh-topic-list">
+          {{#foreach tags}}
+            <a href="{{url}}" class="gh-tag-pill">{{name}}</a>
+          {{/foreach}}
+        </div>
+      </section>
+      {{/if}}
+    {{/get}}
 
-    {{pagination}}
+    <section class="gh-discovery-section" aria-labelledby="recent-posts">
+      <div class="gh-discovery-header">
+        <span class="rule-accent"></span>
+        <h2 id="recent-posts" class="gh-discovery-title">Recent posts</h2>
+      </div>
+
+      <div class="gh-post-grid">
+        {{#foreach posts}}
+          {{> post-card}}
+        {{/foreach}}
+      </div>
+
+      {{pagination}}
+    </section>
+
+    {{#get "posts" include="tags" limit="6" filter="tag:[cafe,personal]"}}
+      {{#if posts}}
+      <section class="gh-discovery-section" aria-labelledby="explore-more">
+        <div class="gh-discovery-header">
+          <span class="rule-accent"></span>
+          <h2 id="explore-more" class="gh-discovery-title">Explore more</h2>
+        </div>
+        <div class="gh-post-grid gh-post-grid--compact">
+          {{#foreach posts}}
+            {{> post-card}}
+          {{/foreach}}
+        </div>
+      </section>
+      {{/if}}
+    {{/get}}
 
     {{> newsletter}}
 

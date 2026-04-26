@@ -19,7 +19,7 @@
         {{img_url feature_image size="xxl"}} 2400w"
       sizes="100vw"
       src="{{img_url feature_image size="xl"}}"
-      alt="{{title}}"
+      alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
       loading="eager">
   </div>
   {{/if}}
@@ -98,20 +98,36 @@
         </footer>
         {{/if}}
 
-        {{! Related posts — uses primary_tag.slug from post root context }}
-        {{#get "posts" filter="tag:{{primary_tag.slug}}+id:-{{id}}" limit="2"}}
+        {{! Related posts }}
+        {{#primary_tag}}
+        {{#get "posts" filter="tag:{{slug}}+id:-{{../id}}" limit="3" include="tags"}}
           {{#if posts}}
-          <div class="gh-related">
-            <span class="rule-accent" style="margin-top:72px"></span>
-            <h3 class="gh-related-title">More writing</h3>
+          <section class="gh-related" aria-labelledby="related-posts">
+            <span class="rule-accent"></span>
+            <h2 id="related-posts" class="gh-related-title">Related posts</h2>
             <div class="gh-post-grid">
               {{#foreach posts}}
-                {{> post-card}}
+                {{> related-post-card}}
               {{/foreach}}
             </div>
-          </div>
+          </section>
           {{/if}}
         {{/get}}
+        {{else}}
+        {{#get "posts" filter="id:-{{id}}" limit="3" include="tags"}}
+          {{#if posts}}
+          <section class="gh-related" aria-labelledby="related-posts">
+            <span class="rule-accent"></span>
+            <h2 id="related-posts" class="gh-related-title">More posts</h2>
+            <div class="gh-post-grid">
+              {{#foreach posts}}
+                {{> related-post-card}}
+              {{/foreach}}
+            </div>
+          </section>
+          {{/if}}
+        {{/get}}
+        {{/primary_tag}}
 
         {{> newsletter}}
 
